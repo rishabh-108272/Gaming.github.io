@@ -19,7 +19,7 @@
         <ul>
           <li class="active"><a href="#">Home</a></li>
           <li><a href="#Games1">Games</a></li>
-          <li><a href="#Support">Support</a></li>
+          <li><a href="#comment">Support</a></li>
           <li class="btn"><a href="https://www.playstation.com/en-in/games/the-last-of-us-part-i/" target="_main">Download</a></li>
         </ul>
       </nav>
@@ -72,10 +72,43 @@ It's 1980, the Cold War balances precariously on the brink of full-scale conflic
     </div>
 </section>
 
-<!--Support-->
-<div class="Support">
+<!--Comment-->
+
+  <section id="comment">
+    <div class="support">
+      <h2>Support</h2>
+      <form name="submit-to-google-sheet">
+        <input type="text" name="full_name" placeholder="Enter name">
+        <input type="email" name="email" placeholder="Email Address">
+        <textarea name="Comment" cols="30" rows="10" placeholder="Your Comment"></textarea>
+         <button type="submit">Submit</button>
+      </form>
+      <span id="hello"></span>
+    </div>
+  </section>
   
-</div>
+
+
+
+
+<script>
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbwOdJF1-kF2kX9BUKuktYQtPIHGbVtqcUGcFWQSkLVWmy0E7pYsrLHHdwIAyK8fklOcPQ/exec'
+  const form = document.forms['submit-to-google-sheet']
+  const hello = document.getElementById("hello")
+  form.addEventListener('submit', e => {
+    e.preventDefault()
+    fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+      .then(response =>{
+        hello.innerHTML ="Message sent successfully"
+        setTimeout(function(){
+          hello.innerHTML=""
+        },5000)
+        form.reset()
+      })
+      .catch(error => console.error('Error!', error.message))
+  })
+</script>
+
 
   
 </body>
